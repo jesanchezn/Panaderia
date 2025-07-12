@@ -16,7 +16,15 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new HashMap<>();
         error.put("error", "Cliente no encontrado");
         error.put("message", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(ProductoNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleProductoNotFoundException(ProductoNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Producto no encontrado");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(RuntimeException.class)
@@ -27,11 +35,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    @ExceptionHandler(ProductoNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleProductoNotFoundException(ProductoNotFoundException ex) {
+    @ExceptionHandler(VentaNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleVentaNotFoundException(VentaNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("error", "Error interno");
+        error.put("error", "Venta no encontrada");
         error.put("message", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
 }

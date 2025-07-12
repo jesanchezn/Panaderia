@@ -1,31 +1,32 @@
 package com.parquesoftti.panaderia.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "ventas")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
+@Table(name = "ventas")
 public class Venta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String producto;
+
+    @Column(nullable = false)
     private Integer cantidad;
 
-    private LocalDateTime fecha = LocalDateTime.now();
+    @Column(nullable = false)
+    private BigDecimal total;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id" , nullable = false)
-    private Cliente cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
-    private Producto producto;
-
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 }
